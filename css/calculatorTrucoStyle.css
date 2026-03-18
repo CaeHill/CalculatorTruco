@@ -34,7 +34,6 @@ button {
 
 .gridTable {
     display: flex;
-    opacity: 0.6;
     transform: rotateX(45deg); 
     transform-origin: bottom center; 
     transform-style: preserve-3d;
@@ -100,17 +99,19 @@ button {
     margin-top: 35vw;
 }
 
+.cardHandImg {
+    width: 100%;
+    height: 100%;
+}
 
 .btnHand {
     width: 7vw;
-    border-radius: 12px;
     box-shadow: 0 8px 16px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 16px;
+    cursor: pointer;
     position: relative;
-}
-
-.cardHand {
-    width: 100%;
-    height: 100%;
+    will-change: transform, box-shadow;
+    transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
 .btnHand:hover {
