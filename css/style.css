@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dokdo&display=swap');
+
 * {
     padding: 0;
     margin: 0;
@@ -103,6 +105,7 @@ button {
     width: 7vw;
     border-radius: 12px;
     box-shadow: 0 8px 16px 8px rgba(0, 0, 0, 0.4);
+    position: relative;
 }
 
 .cardHand {
@@ -111,7 +114,24 @@ button {
 }
 
 .btnHand:hover {
-    box-shadow: 0 8px 16px 8px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 24px 12px rgba(0, 0, 0, 0.6);
+    transform: translateY(-0.8vw);
     z-index: 1;
+}
+
+.btnHand::after {
+    position: absolute;
+    content: attr(alt);
+    font-family: "Dokdo", system-ui;
+    font-size: 96px;
+    color: #EBE3CF;
+    transform: translateX(-50%);
+    top: -40%;
+    left: 50%;
+    visibility: hidden;
+}
+
+.btnHand:hover::after {
+    visibility: visible;
 }
 
