@@ -30,7 +30,6 @@ function initDragAndDrop() {
                 slot.style.backgroundImage = `url(${src})`;
                 slot.style.backgroundSize = '100% 100%';
                 slot.style.backgroundPosition = 'center';
-                slot.style.backgroundRepeat = 'no-repeat';
                 slot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
             }
         });
@@ -39,3 +38,56 @@ function initDragAndDrop() {
 
 // Inicializa quando a página carrega
 document.addEventListener('DOMContentLoaded', initDragAndDrop);
+    
+function teste(buttonId){
+    
+
+    const sum1 = document.querySelector('#summation1');
+    const num1 = getImage(sum1)
+    const sum2 = document.querySelector('#summation2');
+    const num2 = getImage(sum2)
+    const sum3 = document.querySelector('#summation3');
+    const num3 = getImage(sum3)
+    const sum4 = document.querySelector('#summation4');
+    const num4 = getImage(sum4)
+
+    console.log(buttonId);
+
+    const sum5 = document.querySelector('#summation5');
+    const num5 = getImage(sum5)
+    const sum6 = document.querySelector('#summation6');
+    const num6 = getImage(sum6)
+    const sum7 = document.querySelector('#summation7');
+    const num7 = getImage(sum7)
+    const sum8 = document.querySelector('#summation8');
+    const num8 = getImage(sum8)
+
+    const string = `${num1} ${num2} ${num3} ${num4} ${buttonId} ${num5} ${num6} ${num7} ${num8}`;
+
+    let semEspacos = string.replace(/\s+/g, '');
+
+    console.log(semEspacos);
+
+    console.log(eval(semEspacos));
+
+}
+
+
+function getImage(divElemento) {
+
+    const estilosComputados = window.getComputedStyle(divElemento);
+
+    const bgImage = estilosComputados.getPropertyValue('background-image');
+
+    const estiloBg = window.getComputedStyle(divElemento).backgroundImage;
+
+    // Tratar e limpar a url
+    const url = bgImage.split('"')[1] || bgImage.slice(4, -1).replace(/"/g, "");
+    const nomeArquivo = url.split('/').pop();
+
+    const nomeApenas = nomeArquivo.split('.').slice(0, -1).join('.');
+
+    console.log(nomeApenas);
+
+    return nomeApenas;
+}
