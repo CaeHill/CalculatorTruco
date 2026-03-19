@@ -5,19 +5,13 @@
     margin: 0;
 }
 
-button {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-}
-
 #container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+
 
 /* Table styles */
 #tableImg {
@@ -62,34 +56,36 @@ button {
 }
 
 #multiplication {
-    width: 58vw;
-    height: 10vh;
+    width: 57vw;
+    height: 10.5vh;
     margin-top: -1vw;
 }
 
 #division {
-    width: 64vw;
+    width: 63vw;
     height: 12vh;
-    margin-top: -2vw;
+    margin-top: -1.8vw;
 }
 
 #summation {
-    width: 71vw;
-    height: 14vh;
+    width: 70vw;
+    height: 14.5vh;
     margin-top: -2vw;
 }
 
 #subtraction {
-    width: 80vw;
-    height: 15vh;
+    width: 78vw;
+    height: 15.5vh;
     margin-top: -1.5vw;
 }
 
 #result {
-    width: 99vw;
+    width: 96vw;
     height: 24vh;
     margin-top: -1.5vw;
 }
+
+
 
 /* Hand styles */
 #hand {
@@ -104,8 +100,9 @@ button {
     height: 100%;
 }
 
-.btnHand {
-    width: 7vw;
+.cardHand {
+    width: 8vw;
+    height: 28vh;
     box-shadow: 0 8px 16px 8px rgba(0, 0, 0, 0.4);
     border-radius: 16px;
     cursor: pointer;
@@ -114,25 +111,25 @@ button {
     transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
-.btnHand:hover {
+.cardHand:hover {
     box-shadow: 0 8px 24px 12px rgba(0, 0, 0, 0.6);
     transform: translateY(-0.8vw);
     z-index: 1;
 }
 
-.btnHand::after {
+.cardHand::after {
     position: absolute;
-    content: attr(alt);
+    content: attr(id);
     font-family: "Dokdo", system-ui;
     font-size: 96px;
     color: #EBE3CF;
     transform: translateX(-50%);
-    top: -40%;
+    top: -45%;
     left: 50%;
     visibility: hidden;
 }
 
-.btnHand:hover::after {
+.cardHand:hover::after {
     visibility: visible;
 }
 
