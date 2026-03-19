@@ -59,8 +59,10 @@ button {
     /*background-color: tomato;*/
 }
 
-#result .cardTable {
+.resultTable {
     width: 12.5%;
+
+    /*background-color: tomato;*/
 }
 
 #multiplication {

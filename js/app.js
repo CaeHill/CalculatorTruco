@@ -39,9 +39,11 @@ function initDragAndDrop() {
 // Inicializa quando a página carrega
 document.addEventListener('DOMContentLoaded', initDragAndDrop);
     
+const btn = document.getElementById('+');
+btn.addEventListener('click', () => {teste(btn.id);});
+
 function teste(buttonId){
     
-
     const sum1 = document.querySelector('#summation1');
     const num1 = getImage(sum1)
     const sum2 = document.querySelector('#summation2');
@@ -64,14 +66,49 @@ function teste(buttonId){
 
     const string = `${num1} ${num2} ${num3} ${num4} ${buttonId} ${num5} ${num6} ${num7} ${num8}`;
 
-    let semEspacos = string.replace(/\s+/g, '');
-
+    const semEspacos = string.replace(/\s+/g, '');
     console.log(semEspacos);
 
-    console.log(eval(semEspacos));
+    const result = eval(semEspacos);
+    console.log(result);
+
+    printResult(result);
 
 }
 
+function printResult(result) {
+    
+    const tamanho = result.toString().length;
+    console.log(tamanho);
+
+    const cartas = ("" + result).split("");
+    console.log(cartas);
+
+    b(tamanho);
+
+}
+
+function b(tamanho) {
+    const resultTable = document.querySelectorAll('.resultTable');
+
+    resultTable.forEach(div => {
+    
+        div.style.backgroundImage = "url('/img/clubs/4.png')";
+        div.style.backgroundSize = '100% 100%';
+        div.style.backgroundPosition = 'center';
+        div.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
+    });
+
+}
+
+function a() {
+    const resultSlot1 = document.getElementById('result1');
+    
+    resultSlot1.style.backgroundImage = "url('/img/clubs/4.png')";
+    resultSlot1.style.backgroundSize = '100% 100%';
+    resultSlot1.style.backgroundPosition = 'center';
+    resultSlot1.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
+}
 
 function getImage(divElemento) {
 
