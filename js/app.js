@@ -78,6 +78,9 @@ function printResult(resultCardsVet) {
         resultSlot.style.setProperty('--numero-imagem', 0);
     })
 
+    //Get current page
+    const page = getPageName();
+
     //Card set in result table
     const reverseVet = resultCardsVet.reverse();
     for(i = 0; i < reverseVet.length; i++) {
@@ -85,7 +88,7 @@ function printResult(resultCardsVet) {
         const resetSlotId = "result"+i;
         const resetSlot = document.getElementById(resetSlotId);
 
-        resetSlot.style.backgroundImage = "url('/img/clubs/"+card+".png')";
+        resetSlot.style.backgroundImage = "url('/img/"+page+"/"+card+".png')";
         resetSlot.style.backgroundSize = '100% 100%';
         resetSlot.style.backgroundPosition = 'center';
         resetSlot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
@@ -108,6 +111,20 @@ function getImageId(card) {
     console.log(imageId);
 
     return imageId;
+}
+
+function getPageName() {
+
+    //Get current page
+    const page = window.location.pathname;
+
+    //Clean path
+    const pageClear = (page.split("/").pop()).split('.').slice(0, -1).join('.');
+
+    //ConsoleLogs
+    console.log(pageClear);
+
+    return pageClear;
 }
 
 // Função para inicializar o drag and drop das cartas
