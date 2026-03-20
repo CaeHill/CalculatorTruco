@@ -1,3 +1,132 @@
+main();
+
+function main() {
+    document.addEventListener('DOMContentLoaded', initDragAndDrop);
+
+    //Call actions in operator button click
+    const operatorBtn = document.querySelectorAll('.operatorTable') 
+    operatorBtn.forEach(operatorBtn => {
+        operatorBtn.addEventListener('click', () => {
+            const gridName = operatorBtn.parentElement.id;
+            calcFormatter(operatorBtn.id, gridName);
+        })
+    })
+
+    //Cards table remove
+    const cardTable = document.querySelectorAll('.cardTable');
+    cardTable.forEach(slot => {
+        slot.addEventListener('click', () => {
+            slot.style.backgroundImage = 'none';
+            slot.style.boxShadow = 'none';
+            slot.style.cursor = 'default';
+        });
+    });
+
+    //Cards result table remove
+    const resultTable = document.querySelectorAll('.resultTable');
+    resultTable.forEach(slot => {
+        slot.addEventListener('click', () => {
+            slot.style.backgroundImage = 'none';
+            slot.style.boxShadow = 'none';
+            slot.style.cursor = 'default';
+            slot.style.setProperty('--numero-imagem', 0);
+        });
+    });
+}
+
+function calcFormatter(buttonId, gridName){
+    
+    //String builder
+    const cardsVet = ["","","","",buttonId,"","","",""];
+    for(i = 0; i < cardsVet.length; i++) {
+        if(i==4) {
+            continue;
+        }
+        const cardId = gridName+i;
+        const card = document.getElementById(cardId);
+        const cardNum = getImageId(card);
+        cardsVet[i] = cardNum;
+    }
+    const cardsString = cardsVet.join("");
+
+    //ConsoleLogs
+    console.log(cardsString);
+
+    calcResult(cardsString);
+}
+
+function calcResult(cardsString) {
+
+    //Calculator result
+    const result = eval(cardsString);
+    const resultCardsVet = ("" + result).split("");
+
+    //ConsoleLogs
+    console.log(result);
+    console.log(resultCardsVet);
+
+    printResult(resultCardsVet);
+}
+
+function printResult(resultCardsVet) {
+
+    //Result table reset
+    const resultTable = document.querySelectorAll('.resultTable');
+    resultTable.forEach(resultSlot => {
+        resultSlot.style.backgroundImage = 'none';
+        resultSlot.style.boxShadow = 'none';
+        resultSlot.style.setProperty('--numero-imagem', 0);
+    })
+
+    //Get current page
+    const page = getPageName();
+
+    //Card set in result table
+    const reverseVet = resultCardsVet.reverse();
+    for(i = 0; i < reverseVet.length; i++) {
+        const card = reverseVet[i];
+        const resetSlotId = "result"+i;
+        const resetSlot = document.getElementById(resetSlotId);
+
+        resetSlot.style.backgroundImage = "url('/img/"+page+"/"+card+".png')";
+        resetSlot.style.backgroundSize = '100% 100%';
+        resetSlot.style.backgroundPosition = 'center';
+        resetSlot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
+        resetSlot.style.cursor = 'pointer';
+        resetSlot.style.setProperty('--numero-imagem', `"${card}"`);
+    }
+}
+
+function getImageId(card) {
+
+    //Get current image
+    const currentCard = window.getComputedStyle(card);
+    const currentImage = currentCard.getPropertyValue('background-image');
+
+    //Clean URL
+    const url = currentImage.split('"')[1] || currentImage.slice(4, -1).replace(/"/g, "");
+    const imageId = (url.split('/').pop()).split('.').slice(0, -1).join('.');
+
+    //ConsoleLogs
+    console.log(imageId);
+
+    return imageId;
+}
+
+function getPageName() {
+
+    //Get current page
+    const page = window.location.pathname;
+
+    //Clean path
+    const pageClear = (page.split("/").pop()).split('.').slice(0, -1).join('.');
+
+    //ConsoleLogs
+    console.log(pageClear);
+
+    return pageClear;
+}
+
 // Função para inicializar o drag and drop das cartas
 function initDragAndDrop() {
     // Seleciona todas as imagens das cartas na mão
@@ -35,140 +164,4 @@ function initDragAndDrop() {
             }
         });
     });
-}
-
-// Inicializa quando a página carrega
-document.addEventListener('DOMContentLoaded', initDragAndDrop);
-
-
-
-const cardTable = document.querySelectorAll('.cardTable');
-cardTable.forEach(slot => {
-    slot.addEventListener('click', () => {
-        slot.style.backgroundImage = 'none';
-        slot.style.boxShadow = 'none';
-        slot.style.cursor = 'default';
-    });
-});
-
-const resultTable = document.querySelectorAll('.resultTable');
-resultTable.forEach(slot => {
-    slot.addEventListener('click', () => {
-        slot.style.backgroundImage = 'none';
-        slot.style.boxShadow = 'none';
-        slot.style.cursor = 'default';
-        slot.style.setProperty('--numero-imagem', 0);
-    });
-});
-
-
-
-
-    
-const btn = document.getElementById('+');
-btn.addEventListener('click', () => {teste(btn.id);});
-
-function teste(buttonId){
-    
-    const sum1 = document.querySelector('#summation1');
-    const num1 = getImage(sum1)
-    const sum2 = document.querySelector('#summation2');
-    const num2 = getImage(sum2)
-    const sum3 = document.querySelector('#summation3');
-    const num3 = getImage(sum3)
-    const sum4 = document.querySelector('#summation4');
-    const num4 = getImage(sum4)
-
-    console.log(buttonId);
-
-    const sum5 = document.querySelector('#summation5');
-    const num5 = getImage(sum5)
-    const sum6 = document.querySelector('#summation6');
-    const num6 = getImage(sum6)
-    const sum7 = document.querySelector('#summation7');
-    const num7 = getImage(sum7)
-    const sum8 = document.querySelector('#summation8');
-    const num8 = getImage(sum8)
-
-    const string = `${num1} ${num2} ${num3} ${num4} ${buttonId} ${num5} ${num6} ${num7} ${num8}`;
-
-    const semEspacos = string.replace(/\s+/g, '');
-    console.log(semEspacos);
-
-    const result = eval(semEspacos);
-    console.log(result);
-
-    printResult(result);
-
-}
-
-function printResult(result) {
-    
-    const tamanho = result.toString().length;
-    console.log(tamanho);
-
-    const cartas = ("" + result).split("");
-    console.log(cartas);
-
-    b(tamanho, cartas);
-
-}
-
-function b(tamanho, cartas) {
-    const resultTable = document.querySelectorAll('.resultTable');
-
-    resultTable.forEach(result => {
-        result.style.backgroundImage = 'none';
-        result.style.boxShadow = 'none';
-        result.style.setProperty('--numero-imagem', 0);
-    })
-
-    const reverse = cartas.reverse();
-
-    for(let i = 0; i < cartas.length; i++) {
-        const a = reverse[i];
-
-        const pa = "result"+i;
-        console.log(pa);
-
-        const slot = document.getElementById(pa);
-
-        slot.style.backgroundImage = "url('/img/clubs/"+a+".png')";
-        slot.style.backgroundSize = '100% 100%';
-        slot.style.backgroundPosition = 'center';
-        slot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
-        slot.style.cursor = 'pointer';
-        slot.style.setProperty('--numero-imagem', `"${a}"`);
-    }
-
-    
-
-}
-
-function a() {
-    const resultSlot1 = document.getElementById('result1');
-    
-    resultSlot1.style.backgroundImage = "url('/img/clubs/4.png')";
-    resultSlot1.style.backgroundSize = '100% 100%';
-    resultSlot1.style.backgroundPosition = 'center';
-    resultSlot1.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
-}
-
-function getImage(divElemento) {
-
-    const estilosComputados = window.getComputedStyle(divElemento);
-
-    const bgImage = estilosComputados.getPropertyValue('background-image');
-
-    const estiloBg = window.getComputedStyle(divElemento).backgroundImage;
-
-    // Tratar e limpar a url
-    const url = bgImage.split('"')[1] || bgImage.slice(4, -1).replace(/"/g, "");
-    const nomeArquivo = url.split('/').pop();
-
-    const nomeApenas = nomeArquivo.split('.').slice(0, -1).join('.');
-
-    console.log(nomeApenas);
-
-    return nomeApenas;
 }
