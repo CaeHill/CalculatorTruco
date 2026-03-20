@@ -3,8 +3,14 @@ main();
 function main() {
     document.addEventListener('DOMContentLoaded', initDragAndDrop);
 
-    const summationBtn = document.getElementById('+');
-    summationBtn.addEventListener('click', () => {calcFormatter(summationBtn.id);});
+    //Call actions in operator button click
+    const operatorBtn = document.querySelectorAll('.operatorTable') 
+    operatorBtn.forEach(operatorBtn => {
+        operatorBtn.addEventListener('click', () => {
+            const gridName = operatorBtn.parentElement.id;
+            calcFormatter(operatorBtn.id, gridName);
+        })
+    })
 
     //Cards table remove
     const cardTable = document.querySelectorAll('.cardTable');
@@ -28,7 +34,7 @@ function main() {
     });
 }
 
-function calcFormatter(buttonId){
+function calcFormatter(buttonId, gridName){
     
     //String builder
     const cardsVet = ["","","","",buttonId,"","","",""];
@@ -36,7 +42,7 @@ function calcFormatter(buttonId){
         if(i==4) {
             continue;
         }
-        const cardId = "summation"+i;
+        const cardId = gridName+i;
         const card = document.getElementById(cardId);
         const cardNum = getImageId(card);
         cardsVet[i] = cardNum;
