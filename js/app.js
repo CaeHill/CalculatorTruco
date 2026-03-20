@@ -31,6 +31,7 @@ function initDragAndDrop() {
                 slot.style.backgroundSize = '100% 100%';
                 slot.style.backgroundPosition = 'center';
                 slot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
+                slot.style.cursor = 'pointer';
             }
         });
     });
@@ -41,7 +42,14 @@ document.addEventListener('DOMContentLoaded', initDragAndDrop);
 
 
 
-const 
+const cardTable = document.querySelectorAll('.cardTable');
+cardTable.forEach(slot => {
+    slot.addEventListener('click', () => {
+        slot.style.backgroundImage = 'none';
+        slot.style.boxShadow = 'none';
+        slot.style.cursor = 'default';
+    });
+});
 
 
 
