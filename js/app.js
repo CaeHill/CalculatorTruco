@@ -38,6 +38,14 @@ function initDragAndDrop() {
 
 // Inicializa quando a página carrega
 document.addEventListener('DOMContentLoaded', initDragAndDrop);
+
+
+
+const 
+
+
+
+
     
 const btn = document.getElementById('+');
 btn.addEventListener('click', () => {teste(btn.id);});
@@ -84,20 +92,31 @@ function printResult(result) {
     const cartas = ("" + result).split("");
     console.log(cartas);
 
-    b(tamanho);
+    b(tamanho, cartas);
 
 }
 
-function b(tamanho) {
+function b(tamanho, cartas) {
     const resultTable = document.querySelectorAll('.resultTable');
 
-    resultTable.forEach(div => {
+    const reverse = cartas.reverse();
+
+    for(let i = 0; i < cartas.length; i++) {
+        const a = reverse[i];
+
+        const pa = "result"+i;
+        console.log(pa);
+
+        const slot = document.getElementById(pa);
+
+        slot.style.backgroundImage = "url('/img/clubs/"+a+".png')";
+        slot.style.backgroundSize = '100% 100%';
+        slot.style.backgroundPosition = 'center';
+        slot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
+        slot.style.setProperty('--numero-imagem', `"${a}"`);
+    }
+
     
-        div.style.backgroundImage = "url('/img/clubs/4.png')";
-        div.style.backgroundSize = '100% 100%';
-        div.style.backgroundPosition = 'center';
-        div.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
-    });
 
 }
 
