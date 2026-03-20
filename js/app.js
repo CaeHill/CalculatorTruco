@@ -107,6 +107,12 @@ function printResult(result) {
 function b(tamanho, cartas) {
     const resultTable = document.querySelectorAll('.resultTable');
 
+    resultTable.forEach(result => {
+        result.style.backgroundImage = 'none';
+        result.style.boxShadow = 'none';
+        result.style.setProperty('--numero-imagem', 0);
+    })
+
     const reverse = cartas.reverse();
 
     for(let i = 0; i < cartas.length; i++) {
