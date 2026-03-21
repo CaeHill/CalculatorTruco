@@ -39,12 +39,18 @@ function calcFormatter(buttonId, gridName){
     //String builder
     const cardsVet = ["","","","",buttonId,"","","",""];
     for(i = 0; i < cardsVet.length; i++) {
-        if(i==4) {
+        if(i == 4) {
             continue;
         }
         const cardId = gridName+i;
         const card = document.getElementById(cardId);
-        const cardNum = getImageId(card);
+        let cardNum = getImageId(card);
+        
+        //Specific treatment for the Point image
+        if(cardNum == "point") {
+            cardNum = ".";
+        }
+
         cardsVet[i] = cardNum;
     }
     const cardsString = cardsVet.join("");
@@ -62,11 +68,11 @@ function calcResult(cardsString) {
     
     //Rounding double numbers
     if(!Number.isInteger(result)) {
-        const leng = result.toString().split(".")[1].length || 0;
-        if(leng >= 3) {
+        const decimalLength = result.toString().split(".")[1].length || 0;
+        if(decimalLength >= 3) {
             result = result.toFixed(3);
         } else {
-            result = result.toFixed(leng);
+            result = result.toFixed(decimalLength);
         }
     }
     const resultCardsVet = ("" + result).split("");
