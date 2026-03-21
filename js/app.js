@@ -58,7 +58,12 @@ function calcFormatter(buttonId, gridName){
 function calcResult(cardsString) {
 
     //Calculator result
-    const result = eval(cardsString).toFixed(2);
+    let result = eval(cardsString);
+    
+    //Rounding double numbers
+    if(!Number.isInteger(result)) {
+        result = result.toFixed(1);
+    }
     const resultCardsVet = ("" + result).split("");
 
     //ConsoleLogs
