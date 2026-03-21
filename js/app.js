@@ -70,7 +70,9 @@ function calcResult(cardsString) {
     if(!(Number.isInteger(result)) && !(resultErro(result))) {
         const decimalLength = result.toString().split(".")[1].length || 0;
         if(decimalLength >= 3) {
+            //Cut repeating decimal and 0 additional
             result = result.toFixed(3);
+            result = result.toString().replace(/(\.\d*?[1-9])0\d*/, '$1');
         } else {
             result = result.toFixed(decimalLength);
         }
