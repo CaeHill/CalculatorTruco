@@ -62,7 +62,12 @@ function calcResult(cardsString) {
     
     //Rounding double numbers
     if(!Number.isInteger(result)) {
-        result = result.toFixed(1);
+        const leng = result.toString().split(".")[1].length || 0;
+        if(leng >= 3) {
+            result = result.toFixed(3);
+        } else {
+            result = result.toFixed(leng);
+        }
     }
     const resultCardsVet = ("" + result).split("");
 
