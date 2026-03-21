@@ -58,7 +58,7 @@ function calcFormatter(buttonId, gridName){
 function calcResult(cardsString) {
 
     //Calculator result
-    const result = eval(cardsString);
+    const result = eval(cardsString).toFixed(2);
     const resultCardsVet = ("" + result).split("");
 
     //ConsoleLogs
