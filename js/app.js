@@ -65,9 +65,9 @@ function calcResult(cardsString) {
 
     //Calculator result
     let result = eval(cardsString);
-    
+
     //Rounding double numbers
-    if(!Number.isInteger(result)) {
+    if(!(Number.isInteger(result)) && !(resultErro(result))) {
         const decimalLength = result.toString().split(".")[1].length || 0;
         if(decimalLength >= 3) {
             result = result.toFixed(3);
@@ -101,21 +101,27 @@ function printResult(resultCardsVet) {
     const reverseVet = resultCardsVet.reverse();
     for(i = 0; i < reverseVet.length; i++) {
         const card = reverseVet[i];
-        const resetSlotId = "result"+i;
-        const resetSlot = document.getElementById(resetSlotId);
+        const resultSlotId = "result"+i;
+        const resultSlot = document.getElementById(resultSlotId);
 
         //Styles set
-        resetSlot.style.backgroundSize = '100% 100%';
-        resetSlot.style.backgroundPosition = 'center';
-        resetSlot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
-        resetSlot.style.cursor = 'pointer';
-        resetSlot.style.setProperty('--numero-imagem', `"${card}"`);
+        resultSlot.style.backgroundSize = '100% 100%';
+        resultSlot.style.backgroundPosition = 'center';
+        resultSlot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
+        resultSlot.style.cursor = 'pointer';
+        resultSlot.style.setProperty('--numero-imagem', `"${card}"`);
 
         //Specific treatment for the Point image
         if(card == ".") {
-            resetSlot.style.backgroundImage = "url('/img/"+page+"/point.png')";
-        } else {
-            resetSlot.style.backgroundImage = "url('/img/"+page+"/"+card+".png')";
+            resultSlot.style.backgroundImage = "url('/img/"+page+"/point.png')";
+        }
+        //Specific treatment for the Infinity and NaN image
+        else if(!(card.toLowerCase() == card.toUpperCase())) {
+            resultSlot.style.backgroundImage = "url('/img/NaN/"+card+".png')";
+        }
+        //Numbers images
+        else {
+            resultSlot.style.backgroundImage = "url('/img/"+page+"/"+card+".png')";
         }
     }
 }
@@ -148,6 +154,14 @@ function getPageName() {
     console.log(pageClear);
 
     return pageClear;
+}
+
+function resultErro(result) {
+    if((result.toString().includes('I')) || (result.toString().includes('N'))) {
+        return true;
+    }
+
+    return false;
 }
 
 // Função para inicializar o drag and drop das cartas
