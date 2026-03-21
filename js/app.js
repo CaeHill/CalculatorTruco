@@ -88,12 +88,19 @@ function printResult(resultCardsVet) {
         const resetSlotId = "result"+i;
         const resetSlot = document.getElementById(resetSlotId);
 
-        resetSlot.style.backgroundImage = "url('/img/"+page+"/"+card+".png')";
+        //Styles set
         resetSlot.style.backgroundSize = '100% 100%';
         resetSlot.style.backgroundPosition = 'center';
         resetSlot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
         resetSlot.style.cursor = 'pointer';
         resetSlot.style.setProperty('--numero-imagem', `"${card}"`);
+
+        //Specific treatment for the Point image
+        if(card == ".") {
+            resetSlot.style.backgroundImage = "url('/img/"+page+"/point.png')";
+        } else {
+            resetSlot.style.backgroundImage = "url('/img/"+page+"/"+card+".png')";
+        }
     }
 }
 
