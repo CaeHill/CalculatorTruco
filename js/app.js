@@ -166,35 +166,30 @@ function resultErro(result) {
     return false;
 }
 
-// Função para inicializar o drag and drop das cartas
 function initDragAndDrop() {
-    // Seleciona todas as imagens das cartas na mão
     const cardImages = document.querySelectorAll('.cardHandImg');
-
-    // Para cada imagem, torna arrastável e adiciona eventos
     cardImages.forEach(img => {
-        img.draggable = true; // Permite arrastar a imagem
+        //Allows drag the image
+        img.draggable = true;
 
         img.addEventListener('dragstart', (event) => {
-            // Passa a URL da imagem como dado transferido
-            event.dataTransfer.setData('text/plain', img.src);
+            //Pass the image URL as transferred data
+            event.dataTransfer.setData('imageUrl', img.src);
         });
     });
 
-    // Seleciona todos os slots na mesa (cardTable)
     const cardSlots = document.querySelectorAll('.cardTable');
-
-    // Para cada slot, adiciona eventos de drop
     cardSlots.forEach(slot => {
         slot.addEventListener('dragover', (event) => {
-            event.preventDefault(); // Permite o drop
+            //Allows dropping
+            event.preventDefault();
         });
 
         slot.addEventListener('drop', (event) => {
             event.preventDefault();
-            const src = event.dataTransfer.getData('text/plain');
+            const src = event.dataTransfer.getData('imageUrl');
             if (src) {
-                // Aplica a imagem como background do slot
+                //Apply the image as the slot background
                 slot.style.backgroundImage = `url(${src})`;
                 slot.style.backgroundSize = '100% 100%';
                 slot.style.backgroundPosition = 'center';
