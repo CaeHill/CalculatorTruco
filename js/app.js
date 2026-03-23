@@ -3,14 +3,46 @@ main();
 function main() {
     document.addEventListener('DOMContentLoaded', initDragAndDrop);
 
+    //Get name of chosen deck
+    const btnDeckChooser = document.querySelectorAll('.btnDeckChooser');
+    btnDeckChooser.forEach(deck => {
+        deck.addEventListener('click', () => {
+            const deckImage = deck.querySelector('img');
+            const imagePath = deckImage.src;
+
+            //Clean URL
+            const url = imagePath.split('"')[1] || imagePath.slice(4, -1).replace(/"/g, "");
+            const deckChoose = (url.split('/').pop()).split('.').slice(0, -1).join('.');
+
+            //ConsoleLogs
+            console.log(deckChoose);
+
+            //Save chosen deck
+            sessionStorage.setItem('deckChoose', deckChoose);
+        });
+    });
+
+    //Get chosen deck saved
+    const deckChoose = sessionStorage.getItem('deckChoose');
+
+    //ConsoleLogs
+    console.log(deckChoose);
+    
+    //Print all card hand images
+    const hand = document.querySelectorAll('.cardHandImg');
+    hand.forEach(card => {
+        const id = card.id;
+        card.src = "img/"+deckChoose+"/"+id+".png";
+    });
+
     //Call actions in operator button click
-    const operatorBtn = document.querySelectorAll('.operatorTable') 
+    const operatorBtn = document.querySelectorAll('.operatorTable');
     operatorBtn.forEach(operatorBtn => {
         operatorBtn.addEventListener('click', () => {
             const gridName = operatorBtn.parentElement.id;
             calcFormatter(operatorBtn.id, gridName);
-        })
-    })
+        });
+    });
 
     //Cards table remove
     const cardTable = document.querySelectorAll('.cardTable');
@@ -96,8 +128,8 @@ function printResult(resultCardsVet) {
         resultSlot.style.setProperty('--numero-imagem', 0);
     })
 
-    //Get current page
-    const page = getPageName();
+    //Get current deck choose
+    const deckChoose = sessionStorage.getItem('deckChoose');
 
     //Card set in result table
     const reverseVet = resultCardsVet.reverse();
@@ -115,7 +147,7 @@ function printResult(resultCardsVet) {
 
         //Specific treatment for the Point image
         if(card == ".") {
-            resultSlot.style.backgroundImage = "url('/img/"+page+"/point.png')";
+            resultSlot.style.backgroundImage = "url('/img/"+deckChoose+"/point.png')";
         }
         //Specific treatment for the Infinity and NaN image
         else if(!(card.toLowerCase() == card.toUpperCase())) {
@@ -123,7 +155,7 @@ function printResult(resultCardsVet) {
         }
         //Numbers images
         else {
-            resultSlot.style.backgroundImage = "url('/img/"+page+"/"+card+".png')";
+            resultSlot.style.backgroundImage = "url('/img/"+deckChoose+"/"+card+".png')";
         }
     }
 }
