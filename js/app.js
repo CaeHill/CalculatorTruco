@@ -39,12 +39,18 @@ function calcFormatter(buttonId, gridName){
     //String builder
     const cardsVet = ["","","","",buttonId,"","","",""];
     for(i = 0; i < cardsVet.length; i++) {
-        if(i==4) {
+        if(i == 4) {
             continue;
         }
         const cardId = gridName+i;
         const card = document.getElementById(cardId);
-        const cardNum = getImageId(card);
+        let cardNum = getImageId(card);
+        
+        //Specific treatment for the Point image
+        if(cardNum == "point") {
+            cardNum = ".";
+        }
+
         cardsVet[i] = cardNum;
     }
     const cardsString = cardsVet.join("");
@@ -58,7 +64,19 @@ function calcFormatter(buttonId, gridName){
 function calcResult(cardsString) {
 
     //Calculator result
-    const result = eval(cardsString);
+    let result = eval(cardsString);
+
+    //Rounding double numbers
+    if(!(Number.isInteger(result)) && !(resultErro(result))) {
+        const decimalLength = result.toString().split(".")[1].length || 0;
+        if(decimalLength >= 3) {
+            //Cut repeating decimal and 0 additional
+            result = result.toFixed(3);
+            result = result.toString().replace(/(\.\d*?[1-9])0\d*/, '$1');
+        } else {
+            result = result.toFixed(decimalLength);
+        }
+    }
     const resultCardsVet = ("" + result).split("");
 
     //ConsoleLogs
@@ -85,15 +103,28 @@ function printResult(resultCardsVet) {
     const reverseVet = resultCardsVet.reverse();
     for(i = 0; i < reverseVet.length; i++) {
         const card = reverseVet[i];
-        const resetSlotId = "result"+i;
-        const resetSlot = document.getElementById(resetSlotId);
+        const resultSlotId = "result"+i;
+        const resultSlot = document.getElementById(resultSlotId);
 
-        resetSlot.style.backgroundImage = "url('/img/"+page+"/"+card+".png')";
-        resetSlot.style.backgroundSize = '100% 100%';
-        resetSlot.style.backgroundPosition = 'center';
-        resetSlot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
-        resetSlot.style.cursor = 'pointer';
-        resetSlot.style.setProperty('--numero-imagem', `"${card}"`);
+        //Styles set
+        resultSlot.style.backgroundSize = '100% 100%';
+        resultSlot.style.backgroundPosition = 'center';
+        resultSlot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
+        resultSlot.style.cursor = 'pointer';
+        resultSlot.style.setProperty('--numero-imagem', `"${card}"`);
+
+        //Specific treatment for the Point image
+        if(card == ".") {
+            resultSlot.style.backgroundImage = "url('/img/"+page+"/point.png')";
+        }
+        //Specific treatment for the Infinity and NaN image
+        else if(!(card.toLowerCase() == card.toUpperCase())) {
+            resultSlot.style.backgroundImage = "url('/img/NaN/"+card+".png')";
+        }
+        //Numbers images
+        else {
+            resultSlot.style.backgroundImage = "url('/img/"+page+"/"+card+".png')";
+        }
     }
 }
 
@@ -127,35 +158,38 @@ function getPageName() {
     return pageClear;
 }
 
-// Função para inicializar o drag and drop das cartas
-function initDragAndDrop() {
-    // Seleciona todas as imagens das cartas na mão
-    const cardImages = document.querySelectorAll('.cardHandImg');
+function resultErro(result) {
+    if((result.toString().includes('I')) || (result.toString().includes('N'))) {
+        return true;
+    }
 
-    // Para cada imagem, torna arrastável e adiciona eventos
+    return false;
+}
+
+function initDragAndDrop() {
+    const cardImages = document.querySelectorAll('.cardHandImg');
     cardImages.forEach(img => {
-        img.draggable = true; // Permite arrastar a imagem
+        //Allows drag the image
+        img.draggable = true;
 
         img.addEventListener('dragstart', (event) => {
-            // Passa a URL da imagem como dado transferido
-            event.dataTransfer.setData('text/plain', img.src);
+            //Pass the image URL as transferred data
+            event.dataTransfer.setData('imageUrl', img.src);
         });
     });
 
-    // Seleciona todos os slots na mesa (cardTable)
     const cardSlots = document.querySelectorAll('.cardTable');
-
-    // Para cada slot, adiciona eventos de drop
     cardSlots.forEach(slot => {
         slot.addEventListener('dragover', (event) => {
-            event.preventDefault(); // Permite o drop
+            //Allows dropping
+            event.preventDefault();
         });
 
         slot.addEventListener('drop', (event) => {
             event.preventDefault();
-            const src = event.dataTransfer.getData('text/plain');
+            const src = event.dataTransfer.getData('imageUrl');
             if (src) {
-                // Aplica a imagem como background do slot
+                //Apply the image as the slot background
                 slot.style.backgroundImage = `url(${src})`;
                 slot.style.backgroundSize = '100% 100%';
                 slot.style.backgroundPosition = 'center';
