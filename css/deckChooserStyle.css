@@ -49,6 +49,8 @@ button {
     border-radius: 16px;
     cursor: pointer;
     position: relative;
+
+    /*Animation*/
     will-change: transform, box-shadow;
     transition: transform 200ms ease, box-shadow 200ms ease;
 }

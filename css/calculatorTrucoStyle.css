@@ -18,7 +18,6 @@ button {
     align-items: center;
 }
 
-/* Table styles */
 #tableImg {
     position: fixed;
     width: 100vw;
@@ -42,40 +41,54 @@ button {
     border: 3px solid black;*/
 }
 
-.operatorTable {
+.cardTable, .operatorTable {
     width: 11%;
     height: 100%;
+
+    /*background-color: tomato;*/
+}
+
+.operatorTable {
     cursor: pointer;
 
     /*background-color: yellow;*/
 }
 
-.cardTable {
-    width: 11%;
-    height: 100%;
-
-    /*background-color: tomato;*/
+.resultTable, .cardHand {
+    /*Animation*/
+    will-change: transform, box-shadow;
+    transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
 .resultTable {
     width: 12.5%;
     height: 100%;
 
-    /*Animation*/
-    will-change: transform, box-shadow;
-    transition: transform 200ms ease, box-shadow 200ms ease;
+    /*background-color: tomato;*/
+}
+
+.cardHand {
+    width: 7.5vw;
+    height: 28vh;
+    box-shadow: 0 8px 16px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 16px;
+    cursor: pointer;
+    position: relative;
 
     /*background-color: tomato;*/
 }
 
-.resultTable:hover {
+.resultTable:hover, .cardHand:hover {
     transform: translateY(-16px);
     z-index: 1;
 }
 
-.resultTable::after {
+.cardHand:hover {
+    box-shadow: 0 8px 24px 12px rgba(0, 0, 0, 0.6);
+}
+
+.resultTable::after, .cardHand::after {
     position: absolute;
-    content: var(--numero-imagem);
     font-family: "Dokdo", system-ui;
     font-size: 96px;
     color: #EBE3CF;
@@ -90,7 +103,15 @@ button {
     visibility: hidden;
 }
 
-.resultTable:hover::after {
+.resultTable::after {
+    content: var(--numero-imagem);
+}
+
+.cardHand::after {
+    content: attr(id);
+}
+
+.resultTable:hover::after, .cardHand:hover::after {
     visibility: visible;
 }
 
@@ -125,9 +146,6 @@ button {
     margin-top: -1.5vw;
 }
 
-
-
-/* Hand styles */
 #hand {
     position: fixed;
     display: inline-flex;
@@ -142,46 +160,3 @@ button {
     width: 100%;
     height: 100%;
 }
-
-.cardHand {
-    width: 7.5vw;
-    height: 28vh;
-    box-shadow: 0 8px 16px 8px rgba(0, 0, 0, 0.4);
-    border-radius: 16px;
-    cursor: pointer;
-    position: relative;
-
-    /*Animation*/
-    will-change: transform, box-shadow;
-    transition: transform 200ms ease, box-shadow 200ms ease;
-
-    /*background-color: tomato;*/
-}
-
-.cardHand:hover {
-    box-shadow: 0 8px 24px 12px rgba(0, 0, 0, 0.6);
-    transform: translateY(-16px);
-    z-index: 1;
-}
-
-.cardHand::after {
-    position: absolute;
-    content: attr(id);
-    font-family: "Dokdo", system-ui;
-    font-size: 96px;
-    color: #EBE3CF;
-    transform: translateX(-50%);
-    top: -96px;
-    left: 50%;
-
-    /*Border*/
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: black;
-
-    visibility: hidden;
-}
-
-.cardHand:hover::after {
-    visibility: visible;
-}
-
