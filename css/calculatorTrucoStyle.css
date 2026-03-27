@@ -37,21 +37,21 @@ button {
     transform-style: preserve-3d;
     gap: 1%;
     
-    /*background-color: aliceblue;
-    border: 3px solid black;*/
+    background-color: aliceblue;
+    border: 3px solid black;
 }
 
 .cardTable, .operatorTable {
     width: 11%;
     height: 100%;
 
-    /*background-color: tomato;*/
+    background-color: tomato;
 }
 
 .operatorTable {
     cursor: pointer;
 
-    /*background-color: yellow;*/
+    background-color: yellow;
 }
 
 .resultTable, .cardHand {
@@ -64,7 +64,7 @@ button {
     width: 12.5%;
     height: 100%;
 
-    /*background-color: tomato;*/
+    background-color: tomato;
 }
 
 .cardHand {
@@ -75,7 +75,7 @@ button {
     cursor: pointer;
     position: relative;
 
-    /*background-color: tomato;*/
+    background-color: tomato;
 }
 
 .resultTable:hover, .cardHand:hover {
@@ -152,11 +152,33 @@ button {
     gap: 10px;
     margin-top: 35vw;
 
-    /*background-color: aliceblue;
-    border: 3px solid black;*/
+    background-color: aliceblue;
+    border: 3px solid black;
 }
 
-.cardHandImg {
+.cardHandImg, .cardBoxAndBackImg {
     width: 100%;
     height: 100%;
 }
+
+.cardBoxAndBack {
+    position: absolute;
+    width: 8.5vw;
+    height: 23vh;
+
+    margin-top: 32px;
+
+    transform: rotateX(45deg); 
+    transform-origin: bottom center; 
+    transform-style: preserve-3d;
+}
+
+#cardBox {
+    margin-left: -90%;
+}
+
+#cardBack {
+    margin-left: 90%;
+}
+
+
