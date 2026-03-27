@@ -67,7 +67,6 @@ function main() {
 }
 
 function calcFormatter(buttonId, gridName){
-    
     //String builder
     const cardsVet = ["","","","",buttonId,"","","",""];
     for(i = 0; i < cardsVet.length; i++) {
@@ -94,7 +93,6 @@ function calcFormatter(buttonId, gridName){
 }
 
 function calcResult(cardsString) {
-
     //Calculator result
     let result = eval(cardsString);
 
@@ -119,7 +117,6 @@ function calcResult(cardsString) {
 }
 
 function printResult(resultCardsVet) {
-
     //Result table reset
     const resultTable = document.querySelectorAll('.resultTable');
     resultTable.forEach(resultSlot => {
@@ -161,7 +158,6 @@ function printResult(resultCardsVet) {
 }
 
 function getImageId(card) {
-
     //Get current image
     const currentCard = window.getComputedStyle(card);
     const currentImage = currentCard.getPropertyValue('background-image');
@@ -174,20 +170,6 @@ function getImageId(card) {
     console.log(imageId);
 
     return imageId;
-}
-
-function getPageName() {
-
-    //Get current page
-    const page = window.location.pathname;
-
-    //Clean path
-    const pageClear = (page.split("/").pop()).split('.').slice(0, -1).join('.');
-
-    //ConsoleLogs
-    console.log(pageClear);
-
-    return pageClear;
 }
 
 function resultErro(result) {
