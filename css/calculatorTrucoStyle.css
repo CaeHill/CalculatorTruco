@@ -32,29 +32,35 @@ button {
 
 .gridTable {
     display: flex;
+
+    /*Perspective*/
     transform: rotateX(45deg); 
     transform-origin: bottom center; 
     transform-style: preserve-3d;
+
     gap: 1%;
     
+    /*For visualizing the CSS
     background-color: aliceblue;
-    border: 3px solid black;
+    border: 3px solid black;*/
 }
 
 .cardTable, .operatorTable {
     width: 11%;
     height: 100%;
 
-    background-color: tomato;
+    /*For visualizing the CSS
+    background-color: tomato;*/
 }
 
 .operatorTable {
     cursor: pointer;
 
-    background-color: yellow;
+    /*For visualizing the CSS
+    background-color: yellow;*/
 }
 
-.resultTable, .cardHand {
+.resultTable, .cardHand, .BoxAndBack {
     /*Animation*/
     will-change: transform, box-shadow;
     transition: transform 200ms ease, box-shadow 200ms ease;
@@ -64,7 +70,8 @@ button {
     width: 12.5%;
     height: 100%;
 
-    background-color: tomato;
+    /*For visualizing the CSS
+    background-color: tomato;*/
 }
 
 .cardHand {
@@ -75,15 +82,16 @@ button {
     cursor: pointer;
     position: relative;
 
-    background-color: tomato;
+    /*For visualizing the CSS
+    background-color: tomato;*/
 }
 
-.resultTable:hover, .cardHand:hover {
+.resultTable:hover, .cardHand:hover, .BoxAndBack:hover {
     transform: translateY(-16px);
     z-index: 1;
 }
 
-.cardHand:hover {
+.cardHand:hover, .BoxAndBack:hover {
     box-shadow: 0 8px 24px 12px rgba(0, 0, 0, 0.6);
 }
 
@@ -152,33 +160,47 @@ button {
     gap: 10px;
     margin-top: 35vw;
 
+    /*For visualizing the CSS
     background-color: aliceblue;
-    border: 3px solid black;
+    border: 3px solid black;*/
 }
 
-.cardHandImg, .cardBoxAndBackImg {
+.cardHandImg, .BoxAndBackImg {
     width: 100%;
     height: 100%;
 }
 
-.cardBoxAndBack {
+#actions {
     position: absolute;
-    width: 8.5vw;
-    height: 23vh;
 
-    margin-top: 32px;
+    width: 80vw;
 
+    margin-top: 48px;
+    
+    /*Perspective*/
     transform: rotateX(45deg); 
     transform-origin: bottom center; 
     transform-style: preserve-3d;
 }
 
+.BoxAndBack {
+    position: absolute;
+    width: 8.5vw;
+    height: 23vh;
+    cursor: pointer;
+
+    box-shadow: 0 8px 24px 12px rgba(0, 0, 0, 0.4);
+}
+
 #cardBox {
-    margin-left: -90%;
+    border-top-right-radius: 36px;
+    border-bottom-left-radius: 36px;
+    border-bottom-right-radius: 8px;
 }
 
 #cardBack {
     margin-left: 90%;
+    border-top-left-radius: 48px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 48px;
 }
-
-

@@ -59,6 +59,12 @@ function main() {
             styleRemove(slot);
         });
     });
+
+    //Reset table
+    const cardBoxBtn = document.querySelector('#cardBack');
+    cardBoxBtn.addEventListener('click', resetTable);
+
+
 }
 
 function calcFormatter(buttonId, gridName){
@@ -204,7 +210,7 @@ function initDragAndDrop() {
 function styleSet(slot) {
     slot.style.backgroundSize = '100% 100%';
     slot.style.backgroundPosition = 'center';
-    slot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
+    slot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.4)';
     slot.style.cursor = 'pointer';
 }
 
@@ -219,4 +225,17 @@ function clearURL(URL) {
     const clearURL = (auxURL.split('/').pop()).split('.').slice(0, -1).join('.');
 
     return clearURL;
+}
+
+function resetTable() {
+    const tableCards = document.querySelectorAll('.cardTable');
+    tableCards.forEach(card => {
+        styleRemove(card);
+    });
+
+    const resultCards = document.querySelectorAll('.resultTable');
+    resultCards.forEach(card => {
+        card.style.setProperty('--numero-imagem', 0);
+        styleRemove(card);
+    });
 }
