@@ -11,8 +11,7 @@ function main() {
             const imagePath = deckImage.src;
 
             //Clean URL
-            const url = imagePath.split('"')[1] || imagePath.slice(4, -1).replace(/"/g, "");
-            const deckChoose = (url.split('/').pop()).split('.').slice(0, -1).join('.');
+            const deckChoose = clearURL(imagePath);
 
             //ConsoleLogs
             console.log(deckChoose);
@@ -48,9 +47,7 @@ function main() {
     const cardTable = document.querySelectorAll('.cardTable');
     cardTable.forEach(slot => {
         slot.addEventListener('click', () => {
-            slot.style.backgroundImage = 'none';
-            slot.style.boxShadow = 'none';
-            slot.style.cursor = 'default';
+            styleRemove(slot);
         });
     });
 
@@ -58,16 +55,19 @@ function main() {
     const resultTable = document.querySelectorAll('.resultTable');
     resultTable.forEach(slot => {
         slot.addEventListener('click', () => {
-            slot.style.backgroundImage = 'none';
-            slot.style.boxShadow = 'none';
-            slot.style.cursor = 'default';
             slot.style.setProperty('--numero-imagem', 0);
+            styleRemove(slot);
         });
     });
+
+    //Reset table
+    const cardBoxBtn = document.querySelector('#cardBack');
+    cardBoxBtn.addEventListener('click', resetTable);
+
+
 }
 
 function calcFormatter(buttonId, gridName){
-    
     //String builder
     const cardsVet = ["","","","",buttonId,"","","",""];
     for(i = 0; i < cardsVet.length; i++) {
@@ -94,7 +94,6 @@ function calcFormatter(buttonId, gridName){
 }
 
 function calcResult(cardsString) {
-
     //Calculator result
     let result = eval(cardsString);
 
@@ -119,13 +118,11 @@ function calcResult(cardsString) {
 }
 
 function printResult(resultCardsVet) {
-
     //Result table reset
     const resultTable = document.querySelectorAll('.resultTable');
-    resultTable.forEach(resultSlot => {
-        resultSlot.style.backgroundImage = 'none';
-        resultSlot.style.boxShadow = 'none';
-        resultSlot.style.setProperty('--numero-imagem', 0);
+    resultTable.forEach(slot => {
+        slot.style.setProperty('--numero-imagem', 0);
+        styleRemove(slot);
     })
 
     //Get current deck choose
@@ -139,11 +136,8 @@ function printResult(resultCardsVet) {
         const resultSlot = document.getElementById(resultSlotId);
 
         //Styles set
-        resultSlot.style.backgroundSize = '100% 100%';
-        resultSlot.style.backgroundPosition = 'center';
-        resultSlot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
-        resultSlot.style.cursor = 'pointer';
         resultSlot.style.setProperty('--numero-imagem', `"${card}"`);
+        styleSet(resultSlot);
 
         //Specific treatment for the Point image
         if(card == ".") {
@@ -161,33 +155,17 @@ function printResult(resultCardsVet) {
 }
 
 function getImageId(card) {
-
     //Get current image
     const currentCard = window.getComputedStyle(card);
     const currentImage = currentCard.getPropertyValue('background-image');
 
     //Clean URL
-    const url = currentImage.split('"')[1] || currentImage.slice(4, -1).replace(/"/g, "");
-    const imageId = (url.split('/').pop()).split('.').slice(0, -1).join('.');
+    const imageId = clearURL(currentImage);
 
     //ConsoleLogs
     console.log(imageId);
 
     return imageId;
-}
-
-function getPageName() {
-
-    //Get current page
-    const page = window.location.pathname;
-
-    //Clean path
-    const pageClear = (page.split("/").pop()).split('.').slice(0, -1).join('.');
-
-    //ConsoleLogs
-    console.log(pageClear);
-
-    return pageClear;
 }
 
 function resultErro(result) {
@@ -223,11 +201,41 @@ function initDragAndDrop() {
             if (src) {
                 //Apply the image as the slot background
                 slot.style.backgroundImage = `url(${src})`;
-                slot.style.backgroundSize = '100% 100%';
-                slot.style.backgroundPosition = 'center';
-                slot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.3)';
-                slot.style.cursor = 'pointer';
+                styleSet(slot);
             }
         });
+    });
+}
+
+function styleSet(slot) {
+    slot.style.backgroundSize = '100% 100%';
+    slot.style.backgroundPosition = 'center';
+    slot.style.boxShadow = '0 8px 16px 8px rgba(0, 0, 0, 0.4)';
+    slot.style.cursor = 'pointer';
+}
+
+function styleRemove(slot) {
+    slot.style.backgroundImage = 'none';
+    slot.style.boxShadow = 'none';
+    slot.style.cursor = 'default';
+}
+
+function clearURL(URL) {
+    const auxURL = URL.split('"')[1] || URL.slice(4, -1).replace(/"/g, "");
+    const clearURL = (auxURL.split('/').pop()).split('.').slice(0, -1).join('.');
+
+    return clearURL;
+}
+
+function resetTable() {
+    const tableCards = document.querySelectorAll('.cardTable');
+    tableCards.forEach(card => {
+        styleRemove(card);
+    });
+
+    const resultCards = document.querySelectorAll('.resultTable');
+    resultCards.forEach(card => {
+        card.style.setProperty('--numero-imagem', 0);
+        styleRemove(card);
     });
 }

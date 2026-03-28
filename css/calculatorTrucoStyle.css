@@ -18,7 +18,6 @@ button {
     align-items: center;
 }
 
-/* Table styles */
 #tableImg {
     position: fixed;
     width: 100vw;
@@ -33,49 +32,71 @@ button {
 
 .gridTable {
     display: flex;
+
+    /*Perspective*/
     transform: rotateX(45deg); 
     transform-origin: bottom center; 
     transform-style: preserve-3d;
+
     gap: 1%;
     
-    /*background-color: aliceblue;
+    /*For visualizing the CSS
+    background-color: aliceblue;
     border: 3px solid black;*/
 }
 
-.operatorTable {
+.cardTable, .operatorTable {
     width: 11%;
     height: 100%;
-    cursor: pointer;
 
-    /*background-color: yellow;*/
+    /*For visualizing the CSS
+    background-color: tomato;*/
 }
 
-.cardTable {
-    width: 11%;
-    height: 100%;
+.operatorTable {
+    cursor: pointer;
 
-    /*background-color: tomato;*/
+    /*For visualizing the CSS
+    background-color: yellow;*/
+}
+
+.resultTable, .cardHand, .BoxAndBack {
+    /*Animation*/
+    will-change: transform, box-shadow;
+    transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
 .resultTable {
     width: 12.5%;
     height: 100%;
 
-    /*Animation*/
-    will-change: transform, box-shadow;
-    transition: transform 200ms ease, box-shadow 200ms ease;
-
-    /*background-color: tomato;*/
+    /*For visualizing the CSS
+    background-color: tomato;*/
 }
 
-.resultTable:hover {
+.cardHand {
+    width: 7.5vw;
+    height: 28vh;
+    box-shadow: 0 8px 16px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 16px;
+    cursor: pointer;
+    position: relative;
+
+    /*For visualizing the CSS
+    background-color: tomato;*/
+}
+
+.resultTable:hover, .cardHand:hover, .BoxAndBack:hover {
     transform: translateY(-16px);
     z-index: 1;
 }
 
-.resultTable::after {
+.cardHand:hover, .BoxAndBack:hover {
+    box-shadow: 0 8px 24px 12px rgba(0, 0, 0, 0.6);
+}
+
+.resultTable::after, .cardHand::after {
     position: absolute;
-    content: var(--numero-imagem);
     font-family: "Dokdo", system-ui;
     font-size: 96px;
     color: #EBE3CF;
@@ -90,7 +111,15 @@ button {
     visibility: hidden;
 }
 
-.resultTable:hover::after {
+.resultTable::after {
+    content: var(--numero-imagem);
+}
+
+.cardHand::after {
+    content: attr(id);
+}
+
+.resultTable:hover::after, .cardHand:hover::after {
     visibility: visible;
 }
 
@@ -125,63 +154,53 @@ button {
     margin-top: -1.5vw;
 }
 
-
-
-/* Hand styles */
 #hand {
     position: fixed;
     display: inline-flex;
     gap: 10px;
     margin-top: 35vw;
 
-    /*background-color: aliceblue;
+    /*For visualizing the CSS
+    background-color: aliceblue;
     border: 3px solid black;*/
 }
 
-.cardHandImg {
+.cardHandImg, .BoxAndBackImg {
     width: 100%;
     height: 100%;
 }
 
-.cardHand {
-    width: 7.5vw;
-    height: 28vh;
-    box-shadow: 0 8px 16px 8px rgba(0, 0, 0, 0.4);
-    border-radius: 16px;
-    cursor: pointer;
-    position: relative;
-
-    /*Animation*/
-    will-change: transform, box-shadow;
-    transition: transform 200ms ease, box-shadow 200ms ease;
-
-    /*background-color: tomato;*/
-}
-
-.cardHand:hover {
-    box-shadow: 0 8px 24px 12px rgba(0, 0, 0, 0.6);
-    transform: translateY(-16px);
-    z-index: 1;
-}
-
-.cardHand::after {
+#actions {
     position: absolute;
-    content: attr(id);
-    font-family: "Dokdo", system-ui;
-    font-size: 96px;
-    color: #EBE3CF;
-    transform: translateX(-50%);
-    top: -96px;
-    left: 50%;
 
-    /*Border*/
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: black;
+    width: 80vw;
 
-    visibility: hidden;
+    margin-top: 48px;
+    
+    /*Perspective*/
+    transform: rotateX(45deg); 
+    transform-origin: bottom center; 
+    transform-style: preserve-3d;
 }
 
-.cardHand:hover::after {
-    visibility: visible;
+.BoxAndBack {
+    position: absolute;
+    width: 8.5vw;
+    height: 23vh;
+    cursor: pointer;
+
+    box-shadow: 0 8px 24px 12px rgba(0, 0, 0, 0.4);
 }
 
+#cardBox {
+    border-top-right-radius: 36px;
+    border-bottom-left-radius: 36px;
+    border-bottom-right-radius: 8px;
+}
+
+#cardBack {
+    margin-left: 90%;
+    border-top-left-radius: 48px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 48px;
+}
